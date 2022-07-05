@@ -6,7 +6,7 @@ import "./style.css";
 export function NavBar() {
   return (
     <Container>
-      <nav className="bg-white">
+      <nav>
         <img src="../Imagens/loguinho.png" className="logo" alt="description" />
         <div>
           <ul>
