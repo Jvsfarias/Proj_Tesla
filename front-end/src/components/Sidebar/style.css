@@ -1,0 +1,8 @@
+span {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 20px;
+}
+.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
+    backdrop-filter: blur(5px);
+}
