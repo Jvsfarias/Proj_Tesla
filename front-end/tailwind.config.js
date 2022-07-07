@@ -24,6 +24,8 @@ module.exports = {
 
       max500: { max: "500px" },
       // => @media (max-width: 500px) { ... }
+      max350: { max: "350px" },
+      // => @media (max-width: 350px) { ... }
     },
   },
   plugins: [],

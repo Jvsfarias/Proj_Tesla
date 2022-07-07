@@ -9,7 +9,7 @@ const NavBar: React.FC = () => {
 
   const showSiderbar = () => setSidebar(!sidebar);
   return (
-    <Container>
+    <Container className='fixed'>
       <nav className="navegation">
         <img src="../Imagens/loguinho.png" className="logo" alt="description" />
         <div>

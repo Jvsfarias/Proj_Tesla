@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
-import NavBar from "./components/Nav-bar";
+import NavBar from "./components/nav-bar";
 import "./styles/Global.css";
 
 const root = ReactDOM.createRoot(
@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <NavBar />
+    <NavBar/>
     <App />
   </React.StrictMode>
 );
