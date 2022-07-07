@@ -1,11 +1,6 @@
-import { Container } from "@mui/material";
 import React from "react";
-import { Button } from "./components/Button";
+import { Home } from "./pages/Home";
 
 export function App() {
-  return (
-  <Container className="flex align-center">
-    <Button color="red" text="teste"/>    
-  </Container>
-  );
+  return <Home />;
 }
