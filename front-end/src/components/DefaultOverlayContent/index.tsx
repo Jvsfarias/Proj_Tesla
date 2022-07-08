@@ -17,17 +17,16 @@ interface DefaultOverlayContentProps {
 
 export function DefaultOverlayContent(props: DefaultOverlayContentProps) {
   const styled = {
-    backgroundImage: `url(${props.bgImg})`,    
+    backgroundImage: `url(${props.bgImg})`,
     height: "100vh",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    backgroundPosition: 'center'
+    backgroundPosition: "center",
   };
-  console.log(props.bgImg);
   return (
     <div style={styled}>
       <Container>
-        <div className="flex flex-col justify-between h-[100vh] pb-12">
+        <div className="flex flex-col justify-between h-[100vh] pb-20">
           <Title_Subtitle title={props.title} subtitle={props.subtitle} />
           <div className="flex gap-7 justify-center items-center max500:flex-col">
             <ModifyButton
@@ -42,7 +41,6 @@ export function DefaultOverlayContent(props: DefaultOverlayContentProps) {
             />
           </div>
         </div>
-        
       </Container>
     </div>
   );
