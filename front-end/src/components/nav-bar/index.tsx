@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { Container } from "@mui/material";
+import React, { useState } from "react";
 import Sidebar from "../Sidebar";
 
 import "./style.css";
@@ -9,7 +9,7 @@ const NavBar: React.FC = () => {
 
   const showSiderbar = () => setSidebar(!sidebar);
   return (
-    <Container className='fixed'>
+    <Container className="container-navbar">
       <nav className="navegation">
         <img src="../Imagens/loguinho.png" className="logo" alt="description" />
         <div>

@@ -15,15 +15,17 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
     open={props.toggleSidebar}
     anchor={'right'}
    >       
-        <Container className='pt-3'>
-            <CloseIcon fontSize="large" onClick={props.showSiderbar} className='cursor-pointer fixed right-2'/>
-            <div className='flex flex-col w-60 gap-3 mt-20'>
+        <div className='p-7 px-[32px]'>
+            <div className='flex justify-end w-full mb-5'>
+                <CloseIcon fontSize="medium" onClick={props.showSiderbar} className='cursor-pointer right-2'/>
+            </div>
+            <div className='flex flex-col w-60 gap-3'>
                 <span>teste 1</span>
                 <span>teste 2</span>
                 <span>teste 3</span>
                 <span>teste 4</span>
             </div>
-        </Container>
+        </div>
    </Drawer>
   )
 }
