@@ -1,8 +1,8 @@
 import { Container } from "@mui/system";
 import React from "react";
-import { ModifyButton } from "../components/ModifyButton";
-import NavBar from "../components/Nav-bar";
-import { Title_Subtitle } from "../components/Title_Subtitle";
+import { ModifyButton } from "../../components/ModifyButton";
+import NavBar from "../../components/Nav-bar";
+import { Title_Subtitle } from "../../components/Title_Subtitle";
 
 export function Modelo1() {
   return (

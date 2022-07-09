@@ -5,7 +5,7 @@ import { AuthContext, AuthProvider } from "./context/auth";
 import { Dashboard } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
 import Login from "./pages/Login";
-import { Modelo1 } from "./pages/modelo1";
+import { Modelo1 } from "./pages/Modelo1";
 
 export const Router = () => {
     const Private = ({ children }) => {

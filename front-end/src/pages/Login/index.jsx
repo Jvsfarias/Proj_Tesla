@@ -52,8 +52,8 @@ const Login = () => {
                                     ? {
                                           position: "fixed",
                                           right: "26px",
-                                          top: "18px",
-                                          fontSize: "18px",
+                                          top: "29px",
+                                          fontSize: "10px",
                                           fontWeight: "bold",
                                           color: "red",
                                           display: "unset",
@@ -63,7 +63,7 @@ const Login = () => {
                                       }
                             }
                         >
-                            {errorShow ? "inválido" : ""}
+                            {errorShow ? "USUÁRIO / SENHA INVÁLIDO" : ""}
                         </h2>
                         <Box
                             component="form"
@@ -73,14 +73,14 @@ const Login = () => {
                         >
                             <TextField
                                 id="outlined-required"
-                                label="Username"
+                                label="Usuário"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 onKeyDown={handleKeyDown}
                             />
                             <TextField
                                 id="outlined-password-input"
-                                label="Password"
+                                label="Senha"
                                 type="password"
                                 autoComplete="current-password"
                                 value={password}

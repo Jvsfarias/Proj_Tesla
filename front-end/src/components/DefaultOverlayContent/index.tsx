@@ -36,7 +36,9 @@ export function DefaultOverlayContent(props: DefaultOverlayContentProps) {
             <ModifyButton
               color={props.colorButton2}
               textColor={props.textColorButton2}
-            >{props.textButton2}</ModifyButton>
+            >
+              {props.textButton2}
+            </ModifyButton>
           </div>
         </div>
       </Container>
