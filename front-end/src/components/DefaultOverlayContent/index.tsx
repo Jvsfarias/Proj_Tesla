@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@mui/material";
-import { ModifyButton } from "../Button";
+import { ModifyButton } from "../ModifyButton";
 import { Title_Subtitle } from "../Title_Subtitle";
 
 interface DefaultOverlayContentProps {
@@ -31,14 +31,12 @@ export function DefaultOverlayContent(props: DefaultOverlayContentProps) {
           <div className="flex gap-7 justify-center items-center max500:flex-col">
             <ModifyButton
               color={props.colorButton}
-              text={props.textButton}
               textColor={props.textColorButton}
-            />
+            >{props.textButton}</ModifyButton>
             <ModifyButton
               color={props.colorButton2}
-              text={props.textButton2}
               textColor={props.textColorButton2}
-            />
+            >{props.textButton2}</ModifyButton>
           </div>
         </div>
       </Container>
