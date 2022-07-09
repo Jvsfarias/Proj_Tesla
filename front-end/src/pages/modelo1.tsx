@@ -1,18 +1,44 @@
+import { Container } from "@mui/system";
 import React from "react";
-import { DefaultOverlayContent } from "../components/DefaultOverlayContent";
+import { ModifyButton } from "../components/ModifyButton";
+import { Title_Subtitle } from "../components/Title_Subtitle";
 
 export function Modelo1() {
   return (
-    <DefaultOverlayContent
-        title="Modelo 1"
-        subtitle="COMPRE AGORA!!"
-        textButton="Comprar"
-        colorButton="#595959"
-        textColorButton="white"
-        textButton2="Saiba Mais"
-        colorButton2="#FFF"
-        textColorButton2="#595959"
-        bgImg="../Imagens/CópiaDeBike2.jpg"        
-      />
+    <Container>
+        <div className="h-[100vh]">
+        <div className="flex flex-col justify-between h-[100vh] pb-12">
+          <Title_Subtitle title={'teste'} subtitle={'compre'} />
+          <div className="flex gap-7 justify-center items-center max500:flex-col">
+            <div className="flex gap-7">
+                <div>
+                    <h3>396 mi</h3>
+                    <p>Range (EPA est.)</p>
+                </div>
+                <div>
+                    <h3>1.99 s</h3>
+                    <p>0-60 mph*</p>
+                </div>
+                <div>
+                    <h3>200 mph</h3>
+                    <p>Top Speed†</p>
+                </div>
+                <div>
+                    <h3>1,020 hp</h3>
+                    <p>Peak Power</p>
+                </div>
+            </div>          
+            
+            <ModifyButton
+                textColor="#ffff"
+                typeButton="outline" 
+            >teste</ModifyButton>
+          </div>
+        </div>
+           
+        </div>
+       
+    </Container>
+    
   );
 }
