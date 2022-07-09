@@ -16,7 +16,9 @@ app.get('/', (req,res) =>{
 })
 
 
-// Registrar Usuario
+// Registrar Usuario/Validação
+
+
 app.post('/auth/register', async(req, res) => {
         const{ name, email, password, confirmpassword } = req.body
         
@@ -24,8 +26,7 @@ app.post('/auth/register', async(req, res) => {
         if(!name){
             return res.status(422).json({ msg: "O nome é obrigatorio"})
         }
-    }
-)
+})
 
 // Credenciais 
 const dbUser = process.env.DB_USER
