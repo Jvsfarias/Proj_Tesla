@@ -13,17 +13,20 @@ const Login = () => {
     const [errorShow, setErrorShow] = useState(false);
     const { authenticated } = useContext(AuthContext);
 
-    const handleSubmit = () => {
-        login(username, password);
-        if (!authenticated) {
+    const handleSubmit = async () => {
+        const isLogged = await login(username, password);
+        if (!isLogged) {
             setErrorShow(true);
+            return false;
+        } else {
+            return true;
         }
     };
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = async (event) => {
         if (event.key === "Enter") {
-            handleSubmit();
-            if (!authenticated) {
+            const isLogged = await handleSubmit();
+            if (!isLogged) {
                 setErrorShow(true);
             }
         }
@@ -45,7 +48,7 @@ const Login = () => {
                         className="card-login"
                         style={errorShow ? { borderColor: "red" } : {}}
                     >
-                        <h1 className="text-lg">Login</h1>
+                        <h1 style={{ fontSize: "20px" }}>Login</h1>
                         <h2
                             style={
                                 errorShow
@@ -69,7 +72,8 @@ const Login = () => {
                             component="form"
                             noValidate
                             autoComplete="on"
-                            className="flex flex-col gap-4 w-80"
+                            style={{ gap: "16px" }}
+                            className="flex flex-col w-80"
                         >
                             <TextField
                                 id="outlined-required"

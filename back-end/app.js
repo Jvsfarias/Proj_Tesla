@@ -1,176 +1,163 @@
 //imports
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const app = express()
-
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const app = express();
 
 // Config json response
-app.use(express.json())
+app.use(express.json());
 
+// Config cors
+app.use(cors());
 
 // Models
-const User = require('./models/User')
+const User = require("./models/User");
 
 // Abrir rota publica
-app.get('/', (req,res) =>{
-    res.status(200).json({msg: "TERRANNO"})
-})
-
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "TERRANNO" });
+});
 
 // Registrar Usuario/Validação
-app.post('/auth/register', async(req, res) => {
-        const{ name, email, password, confirmpassword } = req.body
-        
-        //validação
-        if(!name){
-            return res.status(422).json({ msg: "O nome é obrigatorio"})
-        }
-        if(!email){
-            return res.status(422).json({ msg: "O email é obrigatorio"})
-        }
-        if(!password){
-            return res.status(422).json({ msg: "A senha é obrigatoria"})
-        }
-        if(password !== confirmpassword){
-            return res.status(422).json({ msg: "A confirmação de senha não confere"})
-        }
-        
-        //Checar se o usuario ja existe (verificação pelo email)
-        const userExists = await User.findOne({email:email})
-        
-        if(userExists){
-            return res.status(422).json({ msg: "Email ja existe, por favor insira outro email"})
-        }
+app.post("/auth/register", async (req, res) => {
+  const { username, password, confirmpassword } = req.body;
 
-        // criar senha / segurança
-        const salt = await bcrypt.genSalt(12) //
-        const passwordHash = await bcrypt.hash(password, salt)
+  //validação
+  if (!username) {
+    return res.status(422).json({ msg: "O usuário é obrigatorio" });
+  }
+  if (!password) {
+    return res.status(422).json({ msg: "A senha é obrigatoria" });
+  }
+  if (password !== confirmpassword) {
+    return res.status(422).json({ msg: "A confirmação de senha não confere" });
+  }
 
-        // criar Usuario // instanciando nova classe
-        const user = new User({
-            name,
-            email,
-            password: passwordHash
-        })
+  //Checar se o usuario ja existe (verificação pelo username)
+  const userExists = await User.findOne({ username: username });
 
-        //Caso aconteça algum erro no servidor, sugestão criar um arquivo log para salvar os erros e monitorar depois
+  if (userExists) {
+    return res
+      .status(422)
+      .json({ msg: "Usuário ja existe, por favor insira outro." });
+  }
 
-        try{
-            await user.save()
+  // criar senha / segurança
+  const salt = await bcrypt.genSalt(12); //
+  const passwordHash = await bcrypt.hash(password, salt);
 
-            res.status(201).json({ msg: 'Usuario criado com sucesso!'}) //resposta caso de certo
-        }catch(error){
-            console.log(error)
+  // criar Usuario // instanciando nova classe
+  const user = new User({
+    username,
+    password: passwordHash,
+  });
 
-            res
-            .status(500)
-            .json({
-                msg: 'Ocorreu um erro no servidor, tente novamente em alguns instantes'
-            })
-        }
+  //Caso aconteça algum erro no servidor, sugestão criar um arquivo log para salvar os erros e monitorar depois
 
-})
+  try {
+    await user.save();
 
+    res.status(201).json({ msg: "Usuario criado com sucesso!" }); //resposta caso de certo
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      msg: "Ocorreu um erro no servidor, tente novamente em alguns instantes",
+    });
+  }
+});
 
 //Login user
-app.post("/auth/login", async(req, res) => {
-    const{email, password} = req.body
-    
-    //validações
-    if(!email){
-        return res.status(422).json({ msg: "O email é obrigatorio"})
-    }
-    if(!password){
-        return res.status(422).json({ msg: "A senha não confere"})
-    }
+app.post("/auth/login", async (req, res) => {
+  const { username, password } = req.body;
 
-    //Checar se o usuario ja existe (verificação pelo email)
-    const user = await User.findOne({email:email})
-        
-    if(!user){
-        return res.status(422).json({ msg: "Usuario não existe"})
-    }
-
-    //checar senha
-    const checkPassword = await bcrypt.compare(password, user.password)
-
-    if(!checkPassword){
-        return res.status(422).json({msg: 'Senha invalida!'})
-    }
-
-    try{
-        const secret = process.env.SECRET
-        const token = jwt.sign({
-            id: user._id,
-        },
-        secret,        
-        )
-
-        res.status(200).json({msg: 'Autenticação realizad com sucesso', token})
-
-    }catch{
-        console.log(error)
-
-        res
-        .status(500)
-        .json({
-            msg: 'Ocorreu um erro no servidor, tente novamente em alguns instantes'
-    })
+  //validações
+  if (!username) {
+    return res.status(422).json({ msg: "O usuário é obrigatorio" });
   }
-})
+  if (!password) {
+    return res.status(422).json({ msg: "A senha não confere" });
+  }
 
-//Private Route 
+  //Checar se o usuario ja existe (verificação pelo email)
+  const user = await User.findOne({ username: username });
 
-app.get("/user/:id",checkToken, async(req, res) => {
-    const id = req.params.id
+  if (!user) {
+    return res.status(422).json({ msg: "Usuário não existe" });
+  }
 
-    //checar se user existe
-    const user = await User.findById(id, '-password')
+  //checar senha
+  const checkPassword = await bcrypt.compare(password, user.password);
 
-    if(!user){
-        return res.status(404).json({msg: 'Usuário não encontrado'})
-    }
-    res.status(200).json({user})
-})
+  if (!checkPassword) {
+    return res.status(422).json({ msg: "Senha invalida!" });
+  }
 
-function checkToken(req, res, next){
+  try {
+    const secret = process.env.SECRET;
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      secret
+    );
 
-    const authHeader = req.headers['autorization']
-    const token = authHeader && authHeader.split(" ")[1]
+    res.status(200).json({ msg: "Autenticação realizada com sucesso", token });
+  } catch {
+    console.log(error);
 
-    if(!token){
-        return res.status(404).json({msg: 'Acesso negado'})
-    }
+    res.status(500).json({
+      msg: "Ocorreu um erro no servidor, tente novamente em alguns instantes",
+    });
+  }
+});
 
-    try{
+//Private Route
 
-        const secret = process.env.SECRET
+app.get("/user/:id", checkToken, async (req, res) => {
+  const id = req.params.id;
 
-        jwt.verify(token, secret)
+  //checar se user existe
+  const user = await User.findById(id, "-password");
 
-        next()
-    }catch(error){
-        res.status(400).json({msg: "Token invalido! "})
-    }
+  if (!user) {
+    return res.status(404).json({ msg: "Usuário não encontrado" });
+  }
+  res.status(200).json({ user });
+});
+
+function checkToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) {
+    return res.status(404).json({ msg: "Acesso negado" });
+  }
+
+  try {
+    const secret = process.env.SECRET;
+
+    jwt.verify(token, secret);
+
+    next();
+  } catch (error) {
+    res.status(400).json({ msg: "Token invalido! " });
+  }
 }
 
-// Credenciais 
-const dbUser = process.env.DB_USER
-const dbPassword = process.env.DB_PASS
-
-
+// Credenciais
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASS;
 
 mongoose
-    .connect(
-        `mongodb+srv://${dbUser}:${dbPassword}@cluster0.csmqyq4.mongodb.net/?retryWrites=true&w=majority`
-    )
-    .then(() => {
-    app.listen(3000)
-    console.log('Conectado')
-})
-.catch((err) => console.log(err))
-
-
+  .connect(
+    `mongodb+srv://${dbUser}:${dbPassword}@cluster0.csmqyq4.mongodb.net/?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    app.listen(3001);
+    console.log("Conectado");
+  })
+  .catch((err) => console.log(err));
