@@ -18,7 +18,7 @@ export function Home() {
                         textButton2="Saiba Mais"
                         colorButton2="#FFF"
                         textColorButton2="#595959"
-                        bgImg="../Imagens/te.jpg"
+                        bgImg=""
                     />
                 </div>
                 <div className="scrollerFilho">
