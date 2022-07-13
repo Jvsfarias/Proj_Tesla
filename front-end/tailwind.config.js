@@ -22,8 +22,12 @@ module.exports = {
       max800: { max: "800px" },
       // => @media (max-width: 768px) { ... }
 
+      max700: { max: "700px" },
+      // => @media (max-width: 700px) { ... }
+
       max500: { max: "500px" },
       // => @media (max-width: 500px) { ... }
+
       max350: { max: "350px" },
       // => @media (max-width: 350px) { ... }
     },

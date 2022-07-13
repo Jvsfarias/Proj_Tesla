@@ -46,7 +46,7 @@ app.post("/auth/register", async (req, res) => {
   }
 
   // criar senha / segurança
-  const salt = await bcrypt.genSalt(12); //
+  const salt = await bcrypt.genSalt(12);
   const passwordHash = await bcrypt.hash(password, salt);
 
   // criar Usuario // instanciando nova classe

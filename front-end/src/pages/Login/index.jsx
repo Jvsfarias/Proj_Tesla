@@ -35,15 +35,20 @@ const Login = () => {
     return (
         <>
             <nav className="flex justify-between fixed w-[100vw] bg-gray-800 px-[10%] py-2 shadow-lg">
-                <img
-                    src="../Imagens/loguinho.png"
-                    className="logo cursor-pointer"
-                    alt="description"
-                    onClick={() => navigate("/")}
-                />
+                <Container>
+                    <img
+                        src="../Imagens/loguinho.png"
+                        className="logo cursor-pointer"
+                        alt="description"
+                        onClick={() => navigate("/")}
+                    />
+                </Container>
             </nav>
             <Container>
-                <div className="flex flex-col h-[100vh] justify-center items-center">
+                <div
+                    className="flex flex-col justify-center items-center"
+                    style={{ height: "95vh" }}
+                >
                     <div
                         className="card-login"
                         style={errorShow ? { borderColor: "red" } : {}}

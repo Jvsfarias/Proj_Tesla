@@ -2,6 +2,7 @@ import { CircularProgress } from "@mui/material";
 import { useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthContext, AuthProvider } from "./context/auth";
+import { Conta } from "./pages/Conta";
 import { Dashboard } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
 import Login from "./pages/Login";
@@ -36,6 +37,14 @@ export const Router = () => {
                     element={
                         <Private>
                             <Dashboard />
+                        </Private>
+                    }
+                />
+                <Route
+                    path="/dashboard/:id"
+                    element={
+                        <Private>
+                            <Conta />
                         </Private>
                     }
                 />

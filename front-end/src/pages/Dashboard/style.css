@@ -1,0 +1,59 @@
+.container-dashboard {
+    display: grid;
+    grid-auto-columns: 1fr;
+    height: 100vh;
+    grid-template-rows: 70px 1fr;
+}
+
+#statusPagamento option {
+    color: black;
+}
+#statusPagamento {
+    border-bottom: 1px solid #cacaca66;
+    font-size: 14px;
+}
+
+#statusEnvio option {
+    color: black;
+}
+#statusEnvio {
+    border-bottom: 1px solid #cacaca66;
+    font-size: 14px;
+}
+
+.headerTable {
+    grid-template-columns:
+        minmax(59px, 1fr) minmax(88px, 1.5fr) minmax(117px, 2fr)
+        minmax(50px, 2fr) minmax(11px, 18px);
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px !important;
+    line-height: 19px;
+    color: #cacaca;
+    padding: 12px;
+}
+.headerTable span {
+    font-size: 16px !important;
+}
+.rowTable {
+    grid-template-columns:
+        minmax(59px, 1fr) minmax(88px, 1.5fr) minmax(117px, 2fr)
+        minmax(50px, 2fr) minmax(11px, 18px);
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px !important;
+    line-height: 19px;
+    color: #cacaca;
+    padding: 12px;
+}
+.rowTable span {
+    font-size: 16px !important;
+}
+
+@media screen and (max-width: 600px) {
+    .rowTable span {
+        font-size: 12px !important;
+    }
+}
