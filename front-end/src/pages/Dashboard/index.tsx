@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Pagination } from "@mui/material";
+import { Button, Menu, MenuItem, Pagination } from "@mui/material";
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
@@ -214,13 +214,21 @@ export function Dashboard() {
     const navigate = useNavigate();
     const { logout } = useContext(AuthContext);
     const [sidebar, setSidebar] = useState(false);
-    const [itensPerPage, setItensPerPage] = useState(10);
+    const itensPerPage = 10;
     const [currentPage, setCurrentPage] = useState(0);
 
     const pages = Math.ceil(data.length / itensPerPage);
     const StartIndex = currentPage * itensPerPage;
     const endIndex = StartIndex + itensPerPage;
     const currentItens = data.slice(StartIndex, endIndex);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const showSiderbar = () => setSidebar(!sidebar);
     const handleLogout = () => {
@@ -244,30 +252,35 @@ export function Dashboard() {
                             alt="description"
                             onClick={() => navigate("/")}
                         />
-                        <span
-                            onClick={showSiderbar}
-                            className="cursor-pointer max500:text-[16px] text-white"
-                        >
-                            Menu
-                        </span>
-                        <Sidebar
-                            toggleSidebar={sidebar}
-                            showSiderbar={showSiderbar}
-                            typeSidebar="dashboard"
-                        >
-                            <span
-                                className="cursor-pointer hover:bg-gray-100 p-1 rounded-md transition-colors bg-transparent"
-                                onClick={() => navigate("/dashboard/123")}
+                        <div>
+                            <Button
+                                id="basic-button"
+                                aria-controls={open ? "basic-menu" : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? "true" : undefined}
+                                onClick={handleClick}
                             >
-                                Conta
-                            </span>
-                            <span className="cursor-pointer hover:bg-gray-100 p-1 rounded-md transition-colors bg-transparent">
-                                Registar Usuário
-                            </span>
-                            <Button variant="contained" onClick={handleLogout}>
-                                Logout
+                                Menu
                             </Button>
-                        </Sidebar>
+                            <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                MenuListProps={{
+                                    "aria-labelledby": "basic-button",
+                                }}
+                            >
+                                <MenuItem
+                                    onClick={() => navigate("/dashboard/123")}
+                                >
+                                    My account
+                                </MenuItem>
+                                <MenuItem onClick={handleLogout}>
+                                    Logout
+                                </MenuItem>
+                            </Menu>
+                        </div>
                     </div>
                 </Container>
             </nav>

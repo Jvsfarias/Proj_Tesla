@@ -52,6 +52,10 @@
     font-size: 16px !important;
 }
 
+#basic-button {
+    color: #fff;
+}
+
 @media screen and (max-width: 600px) {
     .rowTable span {
         font-size: 12px !important;
