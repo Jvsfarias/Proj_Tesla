@@ -21,9 +21,11 @@ app.get("/", (req, res) => {
   res.status(200).json({ msg: "TERRANNO" });
 });
 
+
+
 // Registrar Usuario/Validação
-app.post("/auth/register", async (req, res) => {
-  const { username, password, confirmpassword } = req.body;
+app.post("/auth/register/:id",checkAdm, async (req, res) => {
+  const { username, password, confirmpassword, adm  } = req.body;
 
   //validação
   if (!username) {
@@ -53,6 +55,7 @@ app.post("/auth/register", async (req, res) => {
   const user = new User({
     username,
     password: passwordHash,
+    adm
   });
 
   //Caso aconteça algum erro no servidor, sugestão criar um arquivo log para salvar os erros e monitorar depois
@@ -70,30 +73,43 @@ app.post("/auth/register", async (req, res) => {
   }
 });
 
+//Private Route adm
+async function checkAdm(req,res, next){
+    const id = req.params.id;
+    const adm = await User.findById(id,"-password")
+    if(!adm.ADM){
+        return res.status(400).json({ msg: "Acesso negado" });
+  }else{
+    next();
+  }
+  
+}
+
+
 //Login user
 app.post("/auth/login", async (req, res) => {
   const { username, password } = req.body;
 
   //validações
   if (!username) {
-    return res.status(422).json({ msg: "O usuário é obrigatorio" });
+    return res.status(422).json({ msg: "O usuário é obrigatorio!" });
   }
   if (!password) {
-    return res.status(422).json({ msg: "A senha não confere" });
+    return res.status(422).json({ msg: "Usuario ou senha não confere!" });
   }
 
   //Checar se o usuario ja existe (verificação pelo email)
   const user = await User.findOne({ username: username });
 
   if (!user) {
-    return res.status(422).json({ msg: "Usuário não existe" });
+    return res.status(422).json({ msg: "Usuario ou senha não confere!" });
   }
 
   //checar senha
   const checkPassword = await bcrypt.compare(password, user.password);
 
   if (!checkPassword) {
-    return res.status(422).json({ msg: "Senha invalida!" });
+    return res.status(422).json({ msg: "Usuario ou senha não confere!" });
   }
 
   try {
@@ -115,6 +131,7 @@ app.post("/auth/login", async (req, res) => {
   }
 });
 
+
 //Private Route
 
 app.get("/user/:id", checkToken, async (req, res) => {
@@ -122,11 +139,12 @@ app.get("/user/:id", checkToken, async (req, res) => {
 
   //checar se user existe
   const user = await User.findById(id, "-password");
-
+  
   if (!user) {
     return res.status(404).json({ msg: "Usuário não encontrado" });
   }
   res.status(200).json({ user });
+  
 });
 
 function checkToken(req, res, next) {
