@@ -8,7 +8,7 @@ export function Home() {
         <>
             <NavBar />
             <div className="scroller">
-                <div className="scrollerFilho">
+                <div className="scrollerFilho" id="model1">
                     <DefaultOverlayContent
                         title="Modelo 1"
                         subtitle="Ta esperando o que, para comprar o seu?!"
@@ -21,7 +21,7 @@ export function Home() {
                         bgImg=""
                     />
                 </div>
-                <div className="scrollerFilho">
+                <div className="scrollerFilho" id="model2">
                     <DefaultOverlayContent
                         title="Modelo 2"
                         subtitle="Ta esperando o que, para comprar o seu?!"
@@ -34,7 +34,7 @@ export function Home() {
                         bgImg=""
                     />
                 </div>
-                <div className="scrollerFilho">
+                <div className="scrollerFilho" id="model3">
                     <DefaultOverlayContent
                         title="Modelo 3"
                         subtitle="Ta esperando o que, para comprar o seu?!"
