@@ -25,9 +25,9 @@ const NavBar: React.FC = () => {
                 <div>
                     <ul>
                         <li className="modelos">
-                            <a href="#model1">Model 1</a>
-                            <a href="#model2">Model 2</a>
-                            <a href="#model3">Model 3</a>
+                            <a onClick={() => navigate("/modelo1")}>Model X</a>
+                            <a>Model Y</a>
+                            <a>Model Z</a>
                         </li>
                     </ul>
                 </div>

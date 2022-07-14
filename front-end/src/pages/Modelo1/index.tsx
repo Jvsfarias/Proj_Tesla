@@ -10,6 +10,15 @@ import { motion } from "framer-motion";
 const Title = styled.h1`
     font-size: 26px;
     font-weight: 600;
+    @media screen and (max-width: 600px) {
+        font-size: 20px;
+    }
+    @media screen and (max-width: 500px) {
+        font-size: 17px;
+    }
+    @media screen and (max-width: 400px) {
+        font-size: 14px;
+    }
 `;
 
 const Subtitle = styled.p`
@@ -17,6 +26,12 @@ const Subtitle = styled.p`
     font-weight: 500;
     letter-spacing: 1px;
     text-align: center;
+    @media screen and (max-width: 600px) {
+        font-size: 11px;
+    }
+    @media screen and (max-width: 400px) {
+        font-size: 10px;
+    }
 `;
 
 export function Modelo1() {
@@ -25,14 +40,14 @@ export function Modelo1() {
             <NavBar />
             <Container>
                 <div className="h-[100vh]">
-                    <div className="flex flex-col justify-between h-[100vh] pb-24">
+                    <div className="flex flex-col justify-between h-[100vh] pb-24 max900:pb-10">
                         <Title_Subtitle
                             title={"Modelo 1"}
                             subtitle={"Uma bicicleta jamais vista antes"}
                         />
-                        <div className="flex gap-16 justify-center items-center max500:flex-col">
+                        <div className="flex gap-16 justify-center items-center max900:flex-col max900:gap-6">
                             <div
-                                className="flex gap-16 justify-center items-center"
+                                className="flex gap-16 justify-center items-center max500:gap-10"
                                 id="div-pai"
                             >
                                 <div>
@@ -54,12 +69,14 @@ export function Modelo1() {
                                 </div>
                             </div>
 
-                            <ModifyButton
-                                textColor="#ffff"
-                                typeButton="outline"
-                            >
-                                Bottom
-                            </ModifyButton>
+                            <div className="bottom">
+                                <ModifyButton
+                                    textColor="#ffff"
+                                    typeButton="outline"
+                                >
+                                    Bottom
+                                </ModifyButton>
+                            </div>
                         </div>
                     </div>
                 </div>

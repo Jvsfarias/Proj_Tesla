@@ -8,9 +8,9 @@ export function Home() {
         <>
             <NavBar />
             <div className="scroller">
-                <div className="scrollerFilho" id="model1">
+                <div className="scrollerFilho">
                     <DefaultOverlayContent
-                        title="Modelo 1"
+                        title="Modelo X"
                         subtitle="Ta esperando o que, para comprar o seu?!"
                         textButton="Comprar"
                         colorButton="#595959"
@@ -21,9 +21,9 @@ export function Home() {
                         bgImg=""
                     />
                 </div>
-                <div className="scrollerFilho" id="model2">
+                <div className="scrollerFilho">
                     <DefaultOverlayContent
-                        title="Modelo 2"
+                        title="Modelo Y"
                         subtitle="Ta esperando o que, para comprar o seu?!"
                         textButton="Comprar"
                         colorButton="#595959"
@@ -34,9 +34,9 @@ export function Home() {
                         bgImg=""
                     />
                 </div>
-                <div className="scrollerFilho" id="model3">
+                <div className="scrollerFilho">
                     <DefaultOverlayContent
-                        title="Modelo 3"
+                        title="Modelo Z"
                         subtitle="Ta esperando o que, para comprar o seu?!"
                         textButton="Comprar"
                         colorButton="#595959"
