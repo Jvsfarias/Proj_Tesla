@@ -12,13 +12,16 @@ const NavBar: React.FC = () => {
 
     return (
         <Container className="container-navbar">
-            <nav className="navegation">
-                <img
-                    src="../Imagens/loguinho.png"
-                    className="logo cursor-pointer"
-                    alt="description"
-                    onClick={() => navigate("/")}
-                />
+            <nav className="navegation justify-between">
+                <a href="#model1">
+                    <img
+                        src="../Imagens/loguinho.png"
+                        className="logo cursor-pointer"
+                        alt="description"
+                        onClick={() => navigate("/")}
+                    />
+                </a>
+
                 <div>
                     <ul>
                         <li className="modelos">
