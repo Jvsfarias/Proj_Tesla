@@ -6,7 +6,7 @@ import { Conta } from "./pages/Conta";
 import { Dashboard } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
 import Login from "./pages/Login";
-import { Modelo1 } from "./pages/Modelo1";
+import { ModeloX } from "./pages/ModeloX";
 
 export const Router = () => {
     const Private = ({ children }) => {
@@ -31,7 +31,7 @@ export const Router = () => {
         <AuthProvider>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/modelo1" element={<Modelo1 />} />
+                <Route path="/modeloX" element={<ModeloX />} />
                 <Route
                     path="/dashboard"
                     element={

@@ -11,8 +11,8 @@ const NavBar: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <Container className="container-navbar">
-            <nav className="navegation justify-between">
+        <Container className="container-navbar z-50">
+            <nav className="navegation justify-between ">
                 <a href="#model1">
                     <img
                         src="../Imagens/loguinho.png"
@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
                 <div>
                     <ul>
                         <li className="modelos">
-                            <a onClick={() => navigate("/modelo1")}>Model X</a>
+                            <a onClick={() => navigate("/modeloX")}>Model X</a>
                             <a>Model Y</a>
                             <a>Model Z</a>
                         </li>
