@@ -21,11 +21,9 @@ app.get("/", (req, res) => {
   res.status(200).json({ msg: "TERRANNO" });
 });
 
-
-
 // Registrar Usuario/Validação
-app.post("/auth/register/:id",checkAdm, async (req, res) => {
-  const { username, password, confirmpassword, adm  } = req.body;
+app.post("/auth/register/:id", checkAdm, async (req, res) => {
+  const { username, password, confirmpassword, adm } = req.body;
 
   //validação
   if (!username) {
@@ -55,7 +53,7 @@ app.post("/auth/register/:id",checkAdm, async (req, res) => {
   const user = new User({
     username,
     password: passwordHash,
-    adm
+    adm,
   });
 
   //Caso aconteça algum erro no servidor, sugestão criar um arquivo log para salvar os erros e monitorar depois
@@ -74,17 +72,15 @@ app.post("/auth/register/:id",checkAdm, async (req, res) => {
 });
 
 //Private Route adm
-async function checkAdm(req,res, next){
-    const id = req.params.id;
-    const adm = await User.findById(id,"-password")
-    if(!adm.ADM){
-        return res.status(400).json({ msg: "Acesso negado" });
-  }else{
+async function checkAdm(req, res, next) {
+  const id = req.params.id;
+  const adm = await User.findById(id, "-password");
+  if (!adm.adm) {
+    return res.status(400).json({ msg: "Acesso negado" });
+  } else {
     next();
   }
-  
 }
-
 
 //Login user
 app.post("/auth/login", async (req, res) => {
@@ -120,8 +116,11 @@ app.post("/auth/login", async (req, res) => {
       },
       secret
     );
+    const userResp = { username: user.username, id: user._id, adm: user.adm };
 
-    res.status(200).json({ msg: "Autenticação realizada com sucesso", token });
+    res
+      .status(200)
+      .json({ msg: "Autenticação realizada com sucesso", token, userResp });
   } catch {
     console.log(error);
 
@@ -131,7 +130,6 @@ app.post("/auth/login", async (req, res) => {
   }
 });
 
-
 //Private Route
 
 app.get("/user/:id", checkToken, async (req, res) => {
@@ -139,12 +137,11 @@ app.get("/user/:id", checkToken, async (req, res) => {
 
   //checar se user existe
   const user = await User.findById(id, "-password");
-  
+
   if (!user) {
     return res.status(404).json({ msg: "Usuário não encontrado" });
   }
   res.status(200).json({ user });
-  
 });
 
 function checkToken(req, res, next) {

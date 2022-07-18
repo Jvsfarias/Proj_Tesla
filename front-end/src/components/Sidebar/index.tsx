@@ -1,5 +1,5 @@
-import React, { PropsWithoutRef } from "react";
-import { Container, Drawer } from "@mui/material";
+import React from "react";
+import { Drawer } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./style.css";
 

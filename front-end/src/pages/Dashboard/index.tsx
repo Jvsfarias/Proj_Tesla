@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChevronRight } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
-import Sidebar from "../../components/Sidebar";
 import CircleIcon from "@mui/icons-material/Circle";
 import "./style.css";
 
@@ -213,7 +212,6 @@ function TableItem(props: TableItemProps) {
 export function Dashboard() {
     const navigate = useNavigate();
     const { logout } = useContext(AuthContext);
-    const [sidebar, setSidebar] = useState(false);
     const itensPerPage = 10;
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -230,7 +228,6 @@ export function Dashboard() {
         setAnchorEl(null);
     };
 
-    const showSiderbar = () => setSidebar(!sidebar);
     const handleLogout = () => {
         logout();
     };
@@ -272,9 +269,19 @@ export function Dashboard() {
                                 }}
                             >
                                 <MenuItem
-                                    onClick={() => navigate("/dashboard/123")}
+                                    onClick={() => {
+                                        const id =
+                                            localStorage.getItem("userResp");
+                                        if (id !== null) {
+                                            navigate(
+                                                `/dashboard/${
+                                                    JSON.parse(id).id
+                                                }`
+                                            );
+                                        }
+                                    }}
                                 >
-                                    My account
+                                    Contas
                                 </MenuItem>
                                 <MenuItem onClick={handleLogout}>
                                     Logout

@@ -1,0 +1,9 @@
+.container-conta span,
+.container-conta svg {
+    font-size: 16px !important;
+    color: white;
+}
+
+.css-pcoyvf-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled):before {
+    border-bottom: 2px solid #64748b !important;
+}

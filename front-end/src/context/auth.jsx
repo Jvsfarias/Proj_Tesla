@@ -23,7 +23,9 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await createSession(username, password);
             const token = response.data.token;
+            const userResp = JSON.stringify(response.data.userResp);
             localStorage.setItem("token", token);
+            localStorage.setItem("userResp", userResp);
             api.defaults.headers.Authorization = `Bearer ${token}`;
 
             setUser(token);
@@ -36,6 +38,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("userResp");
         api.defaults.headers.Authorization = null;
         setUser(null);
         navigate("/login");

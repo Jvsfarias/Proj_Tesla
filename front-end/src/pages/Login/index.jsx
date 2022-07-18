@@ -1,4 +1,4 @@
-import { Button, Container, dividerClasses, TextField } from "@mui/material";
+import { Button, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorShow, setErrorShow] = useState(false);
-    const { authenticated } = useContext(AuthContext);
 
     const handleSubmit = async () => {
         const isLogged = await login(username, password);
