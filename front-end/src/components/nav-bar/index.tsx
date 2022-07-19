@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
     return (
         <Container className="container-navbar z-50">
             <nav className="navegation justify-between ">
-                <a href="#model1">
+                <a>
                     <img
                         src="../Imagens/loguinho.png"
                         className="logo cursor-pointer"

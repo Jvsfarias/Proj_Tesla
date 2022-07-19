@@ -80,11 +80,6 @@ const divOptions = [
         <Title>48v|14ah</Title>
         <Subtitle>Bateria de Lítio</Subtitle>
     </div>,
-    <div>
-        <ModifyButton textColor="#ffff" typeButton="outline">
-            Bottom
-        </ModifyButton>
-    </div>,
 ];
 
 const filho = {
@@ -108,7 +103,7 @@ export function ModeloX() {
                             animate="visible"
                         >
                             <Title_Subtitle
-                                title={"Modelo 1"}
+                                title={"Modelo X"}
                                 subtitle={"Uma bicicleta jamais vista antes"}
                             />
                         </motion.div>
@@ -129,39 +124,19 @@ export function ModeloX() {
                                     );
                                 })}
                             </motion.div>
-                        </div>
-                    </div>
-                </div>
-            </Container>
-            <Container>
-                <div className="h-[100vh]">
-                    <div className="flex flex-col justify-between h-[100vh] pb-24 max900:pb-10">
-                        <motion.div
-                            variants={containerTitle}
-                            initial="hidden"
-                            animate="visible"
-                        >
-                            <Title_Subtitle
-                                title={"Modelo 1"}
-                                subtitle={"Uma bicicleta jamais vista antes"}
-                            />
-                        </motion.div>
-
-                        <div className="flex gap-16 justify-center items-center max900:flex-col max900:gap-6">
                             <motion.div
-                                className="flex gap-16 justify-center items-center max500:gap-10"
-                                id="div-pai"
                                 variants={containerOptions}
                                 initial="hidden"
-                                animate="visible"
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 1.4 }}
                             >
-                                {divOptions.map((x) => {
-                                    return (
-                                        <motion.div variants={filho}>
-                                            {x}
-                                        </motion.div>
-                                    );
-                                })}
+                                <ModifyButton
+                                    textColor="#ffff"
+                                    typeButton="outline"
+                                    className="w-full"
+                                >
+                                    Bottom
+                                </ModifyButton>
                             </motion.div>
                         </div>
                     </div>

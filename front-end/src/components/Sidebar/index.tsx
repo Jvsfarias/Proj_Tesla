@@ -1,6 +1,7 @@
 import React from "react";
 import { Drawer } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { motion } from "framer-motion";
 import "./style.css";
 
 interface SidebarProps {
@@ -39,11 +40,11 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
                             className="cursor-pointer right-2"
                         />
                     </div>
-                    <div className="flex flex-col w-60 gap-3">
-                        <span>teste 1</span>
-                        <span>teste 2</span>
-                        <span>teste 3</span>
-                        <span>teste 4</span>
+                    <div className="flex flex-col w-60 gap-5">
+                        <a className="model-sidebar">Modelo X</a>
+                        <a className="model-sidebar">Modelo Y</a>
+                        <a className="model-sidebar">Modelo Z</a>
+                        <a className="model-sidebar">Sobre Nós</a>
                     </div>
                 </div>
             </Drawer>

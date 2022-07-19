@@ -1,14 +1,15 @@
-span {
-  font-family: "Roboto";
-  font-style: normal;
-  font-size: 20px;
+.model-sidebar {
+    font-family: "Roboto";
+    font-style: normal;
+    font-size: 15px;
+    margin-left: 15px;
 }
 .css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
-  backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 @media screen and (max-width: 500px) {
-  .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
-    width: 100%;
-  }
+    .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+        width: 100%;
+    }
 }
