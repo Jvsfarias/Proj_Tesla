@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, createSession } from "../services/api";
+import { api, createSession, registerAccount } from "../services/api";
 
 export const AuthContext = createContext();
 
@@ -36,6 +36,21 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const createAccount = async (username, password, adm, id) => {
+        try {
+            const response = await registerAccount(
+                username,
+                password,
+                password,
+                adm,
+                id
+            );
+            return true;
+        } catch {
+            return false;
+        }
+    };
+
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userResp");
@@ -45,7 +60,14 @@ export const AuthProvider = ({ children }) => {
     };
     return (
         <AuthContext.Provider
-            value={{ authenticated: !!user, user, loading, login, logout }}
+            value={{
+                authenticated: !!user,
+                user,
+                loading,
+                login,
+                logout,
+                createAccount,
+            }}
         >
             {children}
         </AuthContext.Provider>

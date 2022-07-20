@@ -8,7 +8,7 @@ import {
     Switch,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChevronLeft } from "@mui/icons-material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -112,6 +112,7 @@ function ContaBar(props: {
 function RegisterBar(props: {
     showContaBar: boolean;
     handleSetFormRegister: (value: Object) => void;
+    setCadastrar: (value: boolean) => void;
 }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -119,6 +120,7 @@ function RegisterBar(props: {
     const [showErrorUsername, setShowErrorUsername] = useState(false);
     const [showErrorPassword, setShowErrorPassword] = useState(false);
     const [adm, setAdm] = useState(false);
+
     const [form, setForm] = useState({
         username: "",
         password: "",
@@ -158,6 +160,7 @@ function RegisterBar(props: {
             if (password === password2 && password !== "" && password2 !== "") {
                 setShowErrorPassword(false);
                 props.handleSetFormRegister(form);
+                props.setCadastrar(true);
             } else {
                 setShowErrorPassword(true);
             }
@@ -270,16 +273,21 @@ function RegisterBar(props: {
 
 export function Conta() {
     const navigate = useNavigate();
-    const { logout } = useContext(AuthContext);
+    const { logout, createAccount } = useContext(AuthContext);
     const [showContaBar, setShowContaBar] = useState(true);
-    const [formRegister, setFormRegister] = useState({});
+    const [cadastrar, setCadastrar] = useState(false);
+    const [formRegister, setFormRegister] = useState({
+        username: "",
+        password: "",
+        adm: false,
+    });
     const [formPassword, setFormPassword] = useState({});
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [username, setUsername] = useState("");
     const [isAdm, setIsAdm] = useState(false);
-
+    const { id } = useParams();
     var user = localStorage.getItem("userResp");
-
+    console.log("aqq", id);
     useEffect(() => {
         if (user !== null) {
             user = JSON.parse(user);
@@ -298,6 +306,29 @@ export function Conta() {
         }
     }, []);
     const open = Boolean(anchorEl);
+
+    useEffect(() => {
+        handleSubmitRegister();
+    }, [cadastrar]);
+
+    const handleSubmitRegister = async () => {
+        if (cadastrar) {
+            //@ts-ignore
+            const isCreate = await createAccount(
+                formRegister.username,
+                formRegister.password,
+                formRegister.adm,
+                id
+            );
+            setCadastrar(false);
+            if (!isCreate) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -310,6 +341,7 @@ export function Conta() {
     };
 
     function handleSetFormRegister(value: Object) {
+        //@ts-ignore
         setFormRegister(value);
     }
     function handleSetFormPassword(value: Object) {
@@ -399,6 +431,7 @@ export function Conta() {
                         <RegisterBar
                             handleSetFormRegister={handleSetFormRegister}
                             showContaBar={showContaBar}
+                            setCadastrar={setCadastrar}
                         />
                     </div>
                 </Container>
