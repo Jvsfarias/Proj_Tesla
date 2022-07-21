@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
     Button,
+    CircularProgress,
     FormControlLabel,
     Input,
     Menu,
@@ -14,6 +15,7 @@ import { ChevronLeft } from "@mui/icons-material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonIcon from "@mui/icons-material/Person";
 import "./style.css";
+import { Notification } from "../../components/notification";
 
 function ContaBar(props: {
     showContaBar: boolean;
@@ -113,6 +115,9 @@ function RegisterBar(props: {
     showContaBar: boolean;
     handleSetFormRegister: (value: Object) => void;
     setCadastrar: (value: boolean) => void;
+    loading: boolean;
+    setLoading: (value: boolean) => void;
+    registerSuccess: boolean;
 }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -161,6 +166,7 @@ function RegisterBar(props: {
                 setShowErrorPassword(false);
                 props.handleSetFormRegister(form);
                 props.setCadastrar(true);
+                props.setLoading(true);
             } else {
                 setShowErrorPassword(true);
             }
@@ -169,9 +175,18 @@ function RegisterBar(props: {
         }
     }
 
+    useEffect(() => {
+        if (props.registerSuccess) {
+            setUsername("");
+            setPassword("");
+            setPassword2("");
+            setAdm(false);
+        }
+    }, [props.registerSuccess]);
+
     return (
         <div
-            className="bg-slate-800 w-[83.6%] h-full text-white p-4 max800:w-full"
+            className="bg-slate-800 w-[83.6%] h-full text-white p-4 max800:w-full relative"
             style={
                 props.showContaBar ? { display: "none" } : { display: "block" }
             }
@@ -193,6 +208,7 @@ function RegisterBar(props: {
                         }}
                         type={"text"}
                         onChange={handleChangeUsername}
+                        value={username}
                     ></Input>
                     <label
                         style={showErrorPassword ? { color: "red" } : {}}
@@ -208,6 +224,7 @@ function RegisterBar(props: {
                         }}
                         type={"password"}
                         onChange={handleChangePassword}
+                        value={password}
                     ></Input>
                     <label
                         style={showErrorPassword ? { color: "red" } : {}}
@@ -225,9 +242,11 @@ function RegisterBar(props: {
                         onChange={(e) => {
                             setPassword2(e.target.value);
                         }}
+                        value={password2}
                     ></Input>
                     <FormControlLabel
                         value={true}
+                        checked={adm}
                         control={
                             <Switch
                                 color="primary"
@@ -240,10 +259,24 @@ function RegisterBar(props: {
                     />
                     <Button
                         variant="contained"
-                        className="w-20"
-                        onClick={handleForm}
+                        className="w-20 relative"
+                        onClick={() => {
+                            handleForm();
+                        }}
+                        disabled={props.loading}
                     >
                         Criar
+                        {
+                            <CircularProgress
+                                className="absolute"
+                                style={
+                                    props.loading
+                                        ? { display: "block" }
+                                        : { display: "none" }
+                                }
+                                size={20}
+                            />
+                        }
                     </Button>
                 </div>
                 <div
@@ -276,18 +309,22 @@ export function Conta() {
     const { logout, createAccount } = useContext(AuthContext);
     const [showContaBar, setShowContaBar] = useState(true);
     const [cadastrar, setCadastrar] = useState(false);
+    const [formPassword, setFormPassword] = useState({});
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [username, setUsername] = useState("");
+    const [isAdm, setIsAdm] = useState(false);
+    const [showErrorRegister, setShowErrorRegister] = useState(false);
+    const [showSuccessRegister, setShowSuccessRegister] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [registerSuccess, setRegisterSuccess] = useState(false);
+    const { id } = useParams();
     const [formRegister, setFormRegister] = useState({
         username: "",
         password: "",
         adm: false,
     });
-    const [formPassword, setFormPassword] = useState({});
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [username, setUsername] = useState("");
-    const [isAdm, setIsAdm] = useState(false);
-    const { id } = useParams();
     var user = localStorage.getItem("userResp");
-    console.log("aqq", id);
+
     useEffect(() => {
         if (user !== null) {
             user = JSON.parse(user);
@@ -322,9 +359,21 @@ export function Conta() {
             );
             setCadastrar(false);
             if (!isCreate) {
-                return false;
+                setLoading(false);
+                setShowErrorRegister(true);
+                setTimeout(() => {
+                    setShowErrorRegister(false);
+                }, 2000);
             } else {
-                return true;
+                setLoading(false);
+                setShowSuccessRegister(true);
+                setTimeout(() => {
+                    setShowSuccessRegister(false);
+                }, 2000);
+                setRegisterSuccess(true);
+                setTimeout(() => {
+                    setRegisterSuccess(false);
+                }, 500);
             }
         }
     };
@@ -432,7 +481,40 @@ export function Conta() {
                             handleSetFormRegister={handleSetFormRegister}
                             showContaBar={showContaBar}
                             setCadastrar={setCadastrar}
+                            loading={loading}
+                            setLoading={setLoading}
+                            registerSuccess={registerSuccess}
                         />
+                        <Container
+                            style={
+                                showErrorRegister
+                                    ? { opacity: 1, position: "absolute" }
+                                    : { opacity: 0, position: "absolute" }
+                            }
+                        >
+                            <Notification
+                                color="red"
+                                textColor="#fff"
+                                className="right-11 top-[-83px]"
+                            >
+                                Erro!
+                            </Notification>
+                        </Container>
+                        <Container
+                            style={
+                                showSuccessRegister
+                                    ? { opacity: 1, position: "absolute" }
+                                    : { opacity: 0, position: "absolute" }
+                            }
+                        >
+                            <Notification
+                                color="green"
+                                textColor="#fff"
+                                className="right-11 top-[-83px]"
+                            >
+                                Sucesso!
+                            </Notification>
+                        </Container>
                     </div>
                 </Container>
             </div>
