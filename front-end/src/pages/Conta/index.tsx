@@ -16,6 +16,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonIcon from "@mui/icons-material/Person";
 import "./style.css";
 import { Notification } from "../../components/notification";
+import { motion, useCycle } from "framer-motion";
 
 function ContaBar(props: {
     showContaBar: boolean;
@@ -316,7 +317,10 @@ export function Conta() {
     const [showErrorRegister, setShowErrorRegister] = useState(false);
     const [showSuccessRegister, setShowSuccessRegister] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showRegisterSuccess, toggleRegisterSuccess] = useCycle(false, true);
+    const [showRegisterError, toggleRegisterError] = useCycle(false, true);
     const [registerSuccess, setRegisterSuccess] = useState(false);
+
     const { id } = useParams();
     const [formRegister, setFormRegister] = useState({
         username: "",
@@ -360,16 +364,16 @@ export function Conta() {
             setCadastrar(false);
             if (!isCreate) {
                 setLoading(false);
-                setShowErrorRegister(true);
+                toggleRegisterError();
                 setTimeout(() => {
-                    setShowErrorRegister(false);
-                }, 2000);
+                    toggleRegisterError();
+                }, 3000);
             } else {
                 setLoading(false);
-                setShowSuccessRegister(true);
+                toggleRegisterSuccess();
                 setTimeout(() => {
-                    setShowSuccessRegister(false);
-                }, 2000);
+                    toggleRegisterSuccess();
+                }, 3000);
                 setRegisterSuccess(true);
                 setTimeout(() => {
                     setRegisterSuccess(false);
@@ -397,6 +401,7 @@ export function Conta() {
         setFormPassword(value);
     }
 
+    console.log(registerSuccess);
     return (
         <div className="container-dashboard">
             <nav className="flex items-center bg-gray-800 py-2 shadow-lg">
@@ -485,36 +490,44 @@ export function Conta() {
                             setLoading={setLoading}
                             registerSuccess={registerSuccess}
                         />
-                        <Container
-                            style={
-                                showErrorRegister
-                                    ? { opacity: 1, position: "absolute" }
-                                    : { opacity: 0, position: "absolute" }
+                        <motion.div
+                            style={{ position: "absolute", width: "73%" }}
+                            initial={false}
+                            animate={
+                                showRegisterError
+                                    ? { opacity: 1 }
+                                    : { opacity: 0 }
                             }
                         >
                             <Notification
                                 color="red"
                                 textColor="#fff"
-                                className="right-11 top-[-83px]"
+                                className="right-0 top-[-83px]"
                             >
                                 Erro!
                             </Notification>
-                        </Container>
-                        <Container
-                            style={
-                                showSuccessRegister
-                                    ? { opacity: 1, position: "absolute" }
-                                    : { opacity: 0, position: "absolute" }
+                        </motion.div>
+                        <motion.div
+                            style={{
+                                position: "absolute",
+                                width: "73%",
+                                backgroundColor: "red",
+                            }}
+                            initial={false}
+                            animate={
+                                showRegisterSuccess
+                                    ? { opacity: 1 }
+                                    : { opacity: 0 }
                             }
                         >
                             <Notification
                                 color="green"
                                 textColor="#fff"
-                                className="right-11 top-[-83px]"
+                                className="right-0 top-[-83px]"
                             >
                                 Sucesso!
                             </Notification>
-                        </Container>
+                        </motion.div>
                     </div>
                 </Container>
             </div>
