@@ -1,11 +1,11 @@
 import { Container } from "@mui/system";
 import React from "react";
 import { ModifyButton } from "../../components/ModifyButton";
-import NavBar from "../../components/Nav-bar";
 import { Title_Subtitle } from "../../components/Title_Subtitle";
 import SpeedIcon from "@mui/icons-material/Speed";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import NavBar from "../../components/nav-bar";
 
 const Title = styled.h1`
     font-size: 26px;

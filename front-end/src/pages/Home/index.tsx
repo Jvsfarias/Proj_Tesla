@@ -1,6 +1,6 @@
 import React from "react";
 import { DefaultOverlayContent } from "../../components/DefaultOverlayContent";
-import NavBar from "../../components/Nav-bar";
+import NavBar from "../../components/nav-bar";
 import "./style.css";
 
 export function Home() {
